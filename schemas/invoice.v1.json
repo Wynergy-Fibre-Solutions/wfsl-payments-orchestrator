@@ -1,0 +1,26 @@
+{
+  "schema": "wfsl.invoice.v1",
+  "issuer": "Wynergy Fibre Solutions Ltd",
+  "invoice_id": "",
+  "event_id": "",
+  "policy_version": "",
+  "issued_at": "",
+  "payee": {
+    "github": ""
+  },
+  "work": {
+    "task": "",
+    "repo": "",
+    "pr": 0,
+    "commit": ""
+  },
+  "amount": {
+    "value": 0,
+    "currency": "GBP"
+  },
+  "evidence": {
+    "ci_artefact": "",
+    "event_hash": ""
+  },
+  "status": "issued"
+}
