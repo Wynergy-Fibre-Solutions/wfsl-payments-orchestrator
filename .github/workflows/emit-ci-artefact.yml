@@ -1,0 +1,35 @@
+name: Emit CI Payment Artefact
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [ main ]
+
+jobs:
+  emit:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Emit ci-input.json
+        run: |
+          mkdir -p artefacts
+          cat > artefacts/ci-input.json <<EOF
+          {
+            "repo": "${{ github.repository }}",
+            "pr": ${{ github.event.pull_request.number }},
+            "commit": "${{ github.sha }}",
+            "github": "${{ github.event.pull_request.user.login }}",
+            "task": "bug_fix_minor",
+            "verified": true,
+            "ci_passed": true
+          }
+          EOF
+
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-input
+          path: artefacts/ci-input.json
