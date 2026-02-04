@@ -13,6 +13,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Derive task from PR labels
+        id: task
+        run: |
+          LABELS='${{ toJson(github.event.pull_request.labels.*.name) }}'
+          echo "Labels: $LABELS"
+
+          TASK=$(echo "$LABELS" | jq -r '
+            map(select(startswith("task:")))
+            | if length == 1 then .[0] | sub("^task:";"") else empty end
+          ')
+
+          if [ -z "$TASK" ]; then
+            echo "Exactly one task:* label is required."
+            exit 1
+          fi
+
+          echo "task=$TASK" >> $GITHUB_OUTPUT
+
       - name: Emit ci-input.json
         run: |
           mkdir -p artefacts
@@ -22,7 +40,7 @@ jobs:
             "pr": ${{ github.event.pull_request.number }},
             "commit": "${{ github.sha }}",
             "github": "${{ github.event.pull_request.user.login }}",
-            "task": "bug_fix_minor",
+            "task": "${{ steps.task.outputs.task }}",
             "verified": true,
             "ci_passed": true
           }
