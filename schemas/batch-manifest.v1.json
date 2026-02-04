@@ -1,0 +1,27 @@
+{
+  "schema": "wfsl.batch-manifest.v1",
+  "issuer": "Wynergy Fibre Solutions Ltd",
+  "batch_id": "",
+  "policy_version": "",
+  "created_at": "",
+  "period": {
+    "from": "",
+    "to": ""
+  },
+  "totals": {
+    "currency": "GBP",
+    "invoice_count": 0,
+    "gross_amount": 0
+  },
+  "invoices": [],
+  "cap_checks": {
+    "per_contributor": "passed",
+    "monthly_total": "passed"
+  },
+  "approval": {
+    "required": true,
+    "approved": false,
+    "approved_by": "",
+    "approved_at": ""
+  }
+}
